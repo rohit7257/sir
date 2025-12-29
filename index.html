@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishes</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .section{
+            height: 100%;
+            width: 100%;
+            position: relative;
+            background-color: rgb(172, 237, 255);
+            
+        }
+        audio{
+            height: 175px;
+            width: 250px;
+            position: absolute;
+            /* border: 2px solid blue; */
+        }
+        h4{
+            font-size: 1.4rem;
+            position: absolute;
+            left: 44%;
+            bottom: 320px;
+            color: red;
+            text-shadow: 0 0 10px #fff, 0 0 20px red, 0 0 40px #ff00ff;
+        }
+    
+        .audio{
+            opacity: 0;
+            /* border: 5px solid red; */
+            left: 42%;
+            bottom: 250px;
+        }
+        .audio:hover{
+           cursor: pointer;
+        }
+        .frame1{
+            position: absolute;
+            /* border: 2px solid red; */
+        }
+        .frame2{
+            bottom: 2px;
+            right: 2px;
+            position: absolute;
+            /* border: 2px solid red; */
+        }
+        .confetti{
+            position: absolute;
+            margin-top: -30px;
+            width: 12px;
+            height: 12px;
+            background: red;
+            animation: fall 4s linear infinite;
+        }
+        
+        @keyframes fall {
+            from { transform: translateY(-50px) rotate(0deg); }
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        .message {
+            height: 150px;
+            position: absolute;
+            top: 20%;
+            width: 100%;
+            text-align: center;
+            /* border: 2px solid blue; */
+            }
+        h1{
+            font-size: 3rem;
+            text-shadow: 0 0 10px #fff, 0 0 20px red, 0 0 40px #ff00ff;
+            color: red;
+            
+        }
+
+        .cake{
+            /* border: 2px solid red; */
+            position: absolute;
+            bottom: 350px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: cake 4s ease-in-out infinite ;
+        }
+
+        @keyframes cake{
+            0%{transform: translate(-50%);}
+            50%{transform: translate(-50%, -25%); }
+        }
+        .cake img{
+            /* border: 2px solid red; */
+            border-radius: 50%;
+            height: 120px;
+        }
+
+        .img_box{
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            bottom: 120px;
+            left: -200px;
+            animation: person 5s ease-out forwards;
+            /* border: 2px solid red; */
+        }
+        @keyframes person{
+            to{
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        .img_box img{
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            /* border: 2px solid red; */
+        }
+        .ballon{
+            position: absolute;
+            bottom: -200px;          
+            width: 80px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, transparent);
+            animation: balloonMove 4s linear infinite;
+        
+        }
+        .ballon::after {
+
+            content: "";
+            position: absolute;
+            top: 100px;             
+            left: 50%;
+            width: 2px;
+            height: 60px;
+            background: #2d0c0c;
+            transform: translateX(-50%);
+        }
+
+
+        @keyframes balloonMove {
+            0% {transform: translate(0, 0);}
+            50% {transform: translate(var(--drift), -50vh);}
+            100% {transform: translate(calc(var(--drift) / 2), -110vh);
+            }
+        }
+    
+    </style>
+</head>
+<body>
+  
+    <div class="section">
+        <audio loop autoplay controls class="audio" id="music" src="./birth.mp3" type="">
+        
+        </audio>
+        <h4>Start Celebration</h4>
+        <img class="frame1" src="./frame1.png" alt="frame">
+        <img class="frame2" src="./frame2.png" alt="frame">
+        <div class="message">
+            <h1 id="bdayMsg"></h1>
+        </div>
+
+        <div class="img_box" id="person">
+            <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg" alt="">
+        </div>
+
+        <div class="cake">
+            
+            <img src="./cake.png" alt="">
+        </div>
+
+<script>
+          for (let i = 0; i < 100; i++) {
+            document.write(`<div class="confetti" style="
+                left:${Math.random()*100}%;
+                background:hsl(${Math.random()*360},100%,50%);
+                animation-delay:${Math.random()*4}s"></div>`);
+        }
+
+        for (let i = 0; i < 5; i++) {
+            const drift = Math.floor(Math.random() * 200) - 100;
+            document.write(`<div class="ballon" style="left:${Math.random()*100}%;
+                --drift:${drift}px;
+                background:hsl(${Math.random()*360},100%,50%);
+                animation-delay:${Math.random()*4}s"></div>`);
+        }
+        </script>
+    </div>
+
+    <script>
+        const message = "🎉 Happy Birthday, Sir!";
+        const textElement = document.getElementById("bdayMsg");
+        const person = document.getElementById("person");
+
+        
+        let i = 0;
+
+        person.addEventListener("animationend", () => {
+            typeText();
+        });
+
+        function typeText(){
+            if(i < message.length){
+                textElement.innerHTML += message.charAt(i);
+                i++;
+                setTimeout(typeText, 120);
+                
+            }
+        }
+
+      
+    </script>
+</body>
+</html>
